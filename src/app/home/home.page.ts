@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NavController} from '@ionic/angular';
+import { CategoriasPage } from '../categorias/categorias.page';
+
 
 @Component({
   selector: 'app-home',
@@ -7,5 +10,13 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  
+  constructor(public navCtrl: NavController){}
+
+  login(){
+
+    this.navCtrl.navigateRoot('/categorias');
+
+  }
 
 }

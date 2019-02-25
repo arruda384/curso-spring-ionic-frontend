@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { CategoriasPage } from '../categorias/categorias.page';
 
 @NgModule({
   imports: [
@@ -18,6 +19,8 @@ import { HomePage } from './home.page';
       }
     ])
   ],
+
+  
   declarations: [HomePage]
 })
 export class HomePageModule {}
