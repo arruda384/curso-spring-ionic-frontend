@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController} from '@ionic/angular';
+import { NavController, MenuController} from '@ionic/angular';
 import { CategoriasPage } from '../categorias/categorias.page';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,12 +12,22 @@ import { CategoriasPage } from '../categorias/categorias.page';
 export class HomePage {
 
   
-  constructor(public navCtrl: NavController){}
+  constructor(public router: Router , public menu: MenuController){
+
+  }
+
+  /*ionViewWillEnter(){
+    this.menu.swipeEnable(false);
+  }
+  
+  ionViewDidLeave(){
+    this.menu.swipeEnable(true);
+  }*/
 
   login(){
-
-    this.navCtrl.navigateRoot('/categorias');
-
+    this.router.navigateByUrl('categorias');
+   
+    // this.navCtrl.navigateRoot('/categorias');
   }
 
 }
