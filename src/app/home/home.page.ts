@@ -21,15 +21,11 @@ export class HomePage {
  
 
   ionViewWillEnter() {
-
-   // this.menu.swipeEnable(false, 'myMenu')
    this.menu.enable(false);
   }
  
   ionViewDidLeave() {
-  this.menu.enable(true);
-  //  this.menu.swipeEnable(false, 'myMenu')
-
+  this.menu.enable(true); 
   }
 
   login(){

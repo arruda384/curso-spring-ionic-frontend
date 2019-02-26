@@ -10,5 +10,18 @@
 </ion-header>
 
 <ion-content padding>
-<p>Paginas de Categorias</p>
+
+    <ion-virtual-scroll [items]="items">
+      
+        <ion-item *virtualItem="let item">
+             <ion-thumbnail item-start>  
+               <ion-img src="{{bucketUrl}}/cat{{item.id}}.jpg"></ion-img>
+             </ion-thumbnail>  
+             <ion-label id="idCat">
+                {{ item.nome}}
+             </ion-label>         
+            
+        </ion-item>
+      </ion-virtual-scroll>
+
 </ion-content>
