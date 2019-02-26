@@ -11,7 +11,11 @@ import { MenuController } from '@ionic/angular';
 export class HomePage {
 
   
-  constructor(public router: Router , public menu: MenuController ){
+  constructor(
+    public router: Router ,
+    public menu: MenuController,
+    )
+    {
   
 }
  
