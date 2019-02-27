@@ -1,44 +1,90 @@
-import { StorageService } from './../services/storage';
-import { Injectable } from "@angular/core";
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError } from 'rxjs/operators';
- 
- 
-@Injectable()
-export class ErrorInterceptor implements HttpInterceptor{
- 
-    constructor(public storage: StorageService){ }
- 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
+import {
+    HttpRequest,
+    HttpHandler,
+    HttpEvent,
+    HttpResponse,
+    HttpErrorResponse,
+    HttpInterceptor
+  } from '@angular/common/http';
+  import { Observable, throwError } from 'rxjs';
+  import { map, catchError } from 'rxjs/operators';
+  import {
+    Router
+  } from '@angular/router';
+  import { ToastController } from '@ionic/angular';
+import { Injectable } from '@angular/core';
+import { getAllRouteGuards } from '@angular/router/src/utils/preactivation';
+import { ReactiveFormsModule } from '@angular/forms';
 
-        alert("passou");
-        return next.handle(req)
-                .pipe(
-                    catchError(error => {
-                       if( !error.status ){
-                            error = JSON.parse(error);
-                        }
-                        switch(error.status){
-                            case 403: this.handle403();
-                            break;
-                        }
- 
-                        return throwError(error);
-                    })) as any;
+@Injectable()
+export class TokenInterceptor implements HttpInterceptor {
+   
+constructor(private router: Router, public toastController: ToastController) {}
+
+intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log("intercept");
+
+       /* const token = localStorage.getItem('token');
+      
+        if (token) {
+          
+          request = request.clone({
+            setHeaders: {
+              'Authorization': token
+            }
+          });
+        }
+      
+        if (!request.headers.has('Content-Type')) {
+            request = request.clone({
+            setHeaders: {
+              'content-type': 'application/json'
+            }
+          });
+        }
+      
+        request = request.clone({
+          headers: request.headers.set('Accept', 'application/json')
+        });
+      */
+        return next.handle(request).pipe(
+          map((event: HttpEvent<any>) => {
+            if (event instanceof HttpResponse) {
+              console.log('event--->>>', event);
+            }
+            return event;
+          }),
+          catchError((error: HttpErrorResponse) => {
+            
+            if (error.status === 403) {
+              if (error.error.status === 403) {
+                  
+                this.presentToast('Acesso negado');
+              } else {
+                this.router.navigate(['/home']);
+              }
+            }
+           
+            
+            return throwError(error);
+          }));
+
+          
+      }
+
+      
+    
+      async presentToast(msg) {
+          
+        const toast = await this.toastController.create({
+          message: msg,
+          duration: 2000,
+          position: 'top'
+        });
+        toast.present();
+      }
+      
     }
- 
- 
-handle403(){
-    alert("error"); 
-    //   this.storage.setLocalUser(null);
-    }
- 
-}
- 
- 
-export const ErrorInterceptorProvider = {
-    provide: HTTP_INTERCEPTORS,
-    useClass: ErrorInterceptor,
-    multi: true,
-};
+       
+
+    

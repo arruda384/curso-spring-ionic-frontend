@@ -29,6 +29,7 @@ export class CategoriasPage implements OnInit {
       },
       error => {
         
+        alert("errorCat");
         console.log(error);
       });
     }
