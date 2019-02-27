@@ -4,7 +4,8 @@ import {
     HttpEvent,
     HttpResponse,
     HttpErrorResponse,
-    HttpInterceptor
+    HttpInterceptor,
+    HTTP_INTERCEPTORS
   } from '@angular/common/http';
   import { Observable, throwError } from 'rxjs';
   import { map, catchError } from 'rxjs/operators';
@@ -47,30 +48,29 @@ intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<a
           headers: request.headers.set('Accept', 'application/json')
         });
       */
-        return next.handle(request).pipe(
-          map((event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse) {
-              console.log('event--->>>', event);
-            }
-            return event;
-          }),
-          catchError((error: HttpErrorResponse) => {
-            
-            if (error.status === 403) {
-              if (error.error.status === 403) {
-                  
-                this.presentToast('Acesso negado');
-              } else {
-                this.router.navigate(['/home']);
-              }
-            }
-           
-            
-            return throwError(error);
-          }));
+        return next.handle(request).pipe(       
+          catchError((error => {   
 
-          
+            let errorObj = error;         
+            if (errorObj.error) {
+                errorObj = errorObj.error;
+              //  this.presentToast('Acesso negado');
+            }  
+            if(!errorObj.status){
+                //case 403: this.handle403();
+                errorObj = JSON.parse(errorObj);
+                //this.router.navigate(['/home']);
+            }               
+            console.log("Erro detectado pelo interceptor");
+            console.log(errorObj);    
+            return throwError(errorObj);
+          }))) as any;
+
       }
+
+      handle403(){
+        this.handle403.arguments.localStorage.setLocalUser(null);
+    }
 
       
     
@@ -83,8 +83,9 @@ intercept (request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<a
         });
         toast.present();
       }
+
+      
       
     }
-       
-
     
+   

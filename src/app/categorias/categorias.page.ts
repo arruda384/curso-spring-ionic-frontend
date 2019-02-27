@@ -3,6 +3,9 @@ import { CategoriaService } from 'src/services/domain/categoria.service';
 import { NavController } from '@ionic/angular';
 import { CategoriaDTO } from 'src/models/categoria.dto';
 import { API_CONFIG } from 'src/config/api.config';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-categorias',
@@ -17,23 +20,37 @@ export class CategoriasPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public  categoriaService : CategoriaService ) { 
+    public  categoriaService : CategoriaService,
+    public router: Router,
+    public toastController: ToastController ) { 
     }
 
 
     ngOnInit() {
       this.categoriaService.findAll()
       .subscribe(response =>{
-        this.items = response;
-        
+        this.items = response;        
       },
-      error => {
-        
-        alert("errorCat");
-        console.log(error);
-      });
+      error => {});
     }
+
+    /*findAll(): void {
+      this.categoriaService.findAll()
+        .subscribe(books => {
+          console.log(books);
+          this.items = items;
+        });
+    }*/
   
+   /* async presentToast(msg) {
+      const toast = await this.toastController.create({
+        message: msg,
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+      alert(msg);
+    }*/
   }
 
   
