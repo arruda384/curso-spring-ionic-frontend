@@ -13,7 +13,7 @@ export class CategoriaService {
     
     findAll() : Observable < CategoriaDTO[]>{
 
-        return this.http.get<CategoriaDTO[]>(API_CONFIG.baseUrl+'/categorias4');
+        return this.http.get<CategoriaDTO[]>(API_CONFIG.baseUrl+'/categorias');
 
         /*.pipe(
             tap(_ => this.log('fetched categorias')),

@@ -9,8 +9,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CategoriaService } from 'src/services/domain/categoria.service';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { TokenInterceptor } from 'src/interceptors/error-interceptor';
+import { HttpClientModule } from '@angular/common/http';
+import { StorageService } from 'src/services/storage';
+import { ErrorInterceptorProvider} from 'src/interceptors/error-interceptor';
 
 
 
@@ -29,13 +30,9 @@ import { TokenInterceptor } from 'src/interceptors/error-interceptor';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriaService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
-    
-    
+    StorageService,
+    ErrorInterceptorProvider
+
    
   ],
   bootstrap: [AppComponent]

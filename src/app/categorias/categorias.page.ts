@@ -29,28 +29,13 @@ export class CategoriasPage implements OnInit {
     ngOnInit() {
       this.categoriaService.findAll()
       .subscribe(response =>{
-        this.items = response;        
+        this.items = response;      
+        console.log(this.items);
+  
       },
       error => {});
     }
-
-    /*findAll(): void {
-      this.categoriaService.findAll()
-        .subscribe(books => {
-          console.log(books);
-          this.items = items;
-        });
-    }*/
-  
-   /* async presentToast(msg) {
-      const toast = await this.toastController.create({
-        message: msg,
-        duration: 2000,
-        position: 'top'
-      });
-      toast.present();
-      alert(msg);
-    }*/
+ 
   }
 
   
