@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { CredenciaisDTO } from 'src/models/credenciais.dto';
+import { AuthService } from 'src/services/auth.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class HomePage {
   constructor(
     public router: Router ,
     public menu: MenuController,
+    public auth: AuthService
     )
     {
   
@@ -35,8 +37,13 @@ export class HomePage {
   }
 
   login(){
-    console.log(this.creds);
-    this.router.navigateByUrl('categorias');
+    this.auth.authenticate(this.creds)
+    .subscribe(response => {
+      console.log(response.headers.get('Authorization'));
+      this.router.navigateByUrl('categorias');
+    },
+    error =>{});
+
 
   }
 

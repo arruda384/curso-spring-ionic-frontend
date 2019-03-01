@@ -12,6 +12,7 @@ import { CategoriaService } from 'src/services/domain/categoria.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageService } from 'src/services/storage';
 import { ErrorInterceptorProvider} from 'src/interceptors/error-interceptor';
+import { AuthService } from 'src/services/auth.service';
 
 
 
@@ -31,7 +32,8 @@ import { ErrorInterceptorProvider} from 'src/interceptors/error-interceptor';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriaService,
     StorageService,
-    ErrorInterceptorProvider
+    ErrorInterceptorProvider,
+    AuthService
 
    
   ],
