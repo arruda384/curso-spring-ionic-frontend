@@ -10,9 +10,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CategoriaService } from 'src/services/domain/categoria.service';
 import { HttpClientModule } from '@angular/common/http';
-import { StorageService } from 'src/services/storage';
 import { ErrorInterceptorProvider} from 'src/interceptors/error-interceptor';
 import { AuthService } from 'src/services/auth.service';
+import { StorageService } from 'src/services/storage.service';
 
 
 
