@@ -13,20 +13,20 @@ export class AppComponent {
     {
       title: 'Home',
       url: '/home',
-      icon: 'home',
-     // component: 'HomePage'
+      icon: 'home'
+     //component: 'HomePage'
     },
     {
       title: 'Categorias',
       url: '/categorias',
-      //component: 'CategoriasPage'
-      icon: 'categorias'
+     // component: 'CategoriasPage'
+     icon: ''
     },
     {
       title: 'Profile',
       url: '/profile',
-      icon: 'profile'
-      //component: 'ProfilePage'     
+      icon: ''
+     // component: 'ProfilePage'     
     }
   ];
 

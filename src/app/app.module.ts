@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptorProvider} from 'src/interceptors/error-interceptor';
 import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
+import { ClienteService } from 'src/services/domain/cliente.service';
 
 
 
@@ -33,7 +34,8 @@ import { StorageService } from 'src/services/storage.service';
     CategoriaService,
     StorageService,
     ErrorInterceptorProvider,
-    AuthService
+    AuthService,
+    ClienteService
 
    
   ],
