@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { CategoriaDTO } from 'src/models/categoria.dto';
 import { Observable, of } from 'rxjs';
 import {API_CONFIG} from "../../config/api.config";
-import { catchError, tap } from 'rxjs/operators';
 
 @Injectable()
 export class CategoriaService {
@@ -14,6 +13,7 @@ export class CategoriaService {
     findAll() : Observable < CategoriaDTO[]>{
 
         return this.http.get<CategoriaDTO[]>(API_CONFIG.baseUrl+'/categorias');
+        
 
         /*.pipe(
             tap(_ => this.log('fetched categorias')),

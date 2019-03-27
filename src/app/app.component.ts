@@ -18,14 +18,14 @@ export class AppComponent {
     },
     {
       title: 'Categorias',
-      url: '/categorias',
+      url: '/categorias'
      // component: 'CategoriasPage'
-     icon: ''
+     //icon: ''
     },
     {
       title: 'Profile',
-      url: '/profile',
-      icon: ''
+      url: '/profile'
+      //icon: ''
      // component: 'ProfilePage'     
     }
   ];

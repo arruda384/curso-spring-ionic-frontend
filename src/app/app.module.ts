@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -14,6 +14,7 @@ import { ErrorInterceptorProvider} from 'src/interceptors/error-interceptor';
 import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
 import { ClienteService } from 'src/services/domain/cliente.service';
+import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 
 
 
@@ -30,11 +31,12 @@ import { ClienteService } from 'src/services/domain/cliente.service';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+   { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriaService,
-    StorageService,
-    ErrorInterceptorProvider,
+    AuthInterceptorProvider,
     AuthService,
+    ErrorInterceptorProvider,
+    StorageService,
     ClienteService
 
    
