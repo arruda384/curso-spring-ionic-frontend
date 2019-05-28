@@ -1,38 +1,38 @@
+import { StorageService } from 'src/services/storage.service';
 import { Injectable } from "@angular/core";
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS} from "@angular/common/http";
-import { Observable} from "rxjs";
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
 import { catchError } from 'rxjs/operators';
  
  
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor{
-  
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-        console.log("interceptor");
-
-        return next.handle(request)
+ 
+    constructor(public storage: StorageService){ }
+ 
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
+        return next.handle(req)
                 .pipe(
                     catchError(error => {
-                        let errorObj = error;
-
-                        if(errorObj.error){
-                            errorObj = errorObj.error;
-                                         
+                       if( !error.status ){
+                            error = JSON.parse(error);
                         }
-                        if(!errorObj.status){                            
-                            errorObj = JSON.parse(errorObj);
-                        
+                        switch(error.status){
+                            case 403: this.handle403();
+                            break;
                         }
-                        console.log("errorObj");
-                        console.log(errorObj);
-                       
-                        return Observable.throw(errorObj);
+ 
+                        return throwError(error);
                     })) as any;
     }
-  
-} 
-
-
+ 
+ 
+handle403(){
+        this.storage.setLocalUser(null);
+    }
+ 
+}
+ 
  
 export const ErrorInterceptorProvider = {
     provide: HTTP_INTERCEPTORS,

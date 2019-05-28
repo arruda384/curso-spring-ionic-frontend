@@ -6,6 +6,7 @@ import { ClienteDTO } from 'src/models/cliente.dto';
 import { ClienteService } from 'src/services/domain/cliente.service';
 import { API_CONFIG } from 'src/config/api.config';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -29,8 +30,16 @@ export class ProfilePage implements OnInit {
       .subscribe(response => {
         this.cliente = response;
         this.getImageIfExists();
-      },
-      erro =>{});
+      },  
+      error => {
+        if (error.status == 403){
+          this.router.navigateByUrl('home');
+        }
+      });
+      
+    }
+    else{
+      this.router.navigateByUrl('home');
     }
   }
 
@@ -41,7 +50,7 @@ export class ProfilePage implements OnInit {
     // this.cliente.imageUrl = API_CONFIG.bucketBaseUrl+'/cp2.jpg';
 
     },
-    erro =>{});
+    error =>{});
   }
 
 }

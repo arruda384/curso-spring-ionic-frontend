@@ -12,23 +12,19 @@ export class AuthInterceptor implements HttpInterceptor{
 
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-        alert("Auth-interceptor");
 
         let localUser = this.storage.getLocalUser();
         let N = API_CONFIG.baseUrl.length;
         let requestToAPI = request.url.substring(0,N) == API_CONFIG.baseUrl;
-        alert(N);
-        alert(requestToAPI);
+     
         
 
         if(localUser && requestToAPI){
-            alert("entrou no IF")
             const authReq = request.clone({headers: request.headers.set('Authorization', 'Bearer ' + localUser.token)});
             return next.handle(authReq);
         }
         else{
 
-            alert("else");
             return next.handle(request)
 
         }
