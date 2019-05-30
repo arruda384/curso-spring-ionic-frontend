@@ -36,6 +36,16 @@ export class HomePage {
   this.menu.enable(true); 
   }
 
+  ionViewDidEnter() {
+    this.auth.refreshToken()
+    .subscribe(response => {
+      this.auth.successfulLogin(response.headers.get('Authorization'));
+      this.router.navigateByUrl('categorias');
+    },
+    error =>{});
+    }
+  
+
   login(){
     this.auth.authenticate(this.creds)
     .subscribe(response => {

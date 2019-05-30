@@ -30,7 +30,7 @@ export class CategoriasPage implements OnInit {
       this.categoriaService.findAll()
       .subscribe(response =>{
         this.items = response;      
-        console.log(this.items);
+        
   
       },
       error => {});
