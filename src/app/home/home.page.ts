@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { CredenciaisDTO } from 'src/models/credenciais.dto';
 import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
+import { SignupPage } from '../signup/signup.page';
+import { SignupPageModule } from '../signup/signup.module';
 
 
 @Component({
@@ -23,7 +25,9 @@ export class HomePage {
     public router: Router ,
     public menu: MenuController,
     public auth: AuthService,
-    private storage: StorageService
+    public storage: StorageService,
+    public navCtrl: NavController
+    
     )
     {
   
@@ -64,5 +68,12 @@ export class HomePage {
 
 
   }
+
+  signup(){
+   // alert("signup");
+    
+    this.router.navigateByUrl('signup');
+  }
+  
 
 }
