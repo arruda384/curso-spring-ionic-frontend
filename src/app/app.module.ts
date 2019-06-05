@@ -19,6 +19,7 @@ import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
 
 
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,7 +27,8 @@ import { AuthInterceptorProvider } from 'src/interceptors/auth-interceptor';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    
   ],
   providers: [
     StatusBar,

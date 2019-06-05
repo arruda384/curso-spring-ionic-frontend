@@ -1,5 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+import { IonicModule } from '@ionic/angular';
 
 import { SignupPage } from './signup.page';
 
@@ -11,6 +15,12 @@ describe('SignupPage', () => {
     TestBed.configureTestingModule({
       declarations: [ SignupPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        IonicModule
+      ],
+      providers: [FormBuilder],
     })
     .compileComponents();
   }));
@@ -24,4 +34,5 @@ describe('SignupPage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
