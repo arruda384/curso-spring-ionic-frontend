@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { CidadeService } from 'src/services/domain/cidade.service';
+import { EstadoService } from 'src/services/domain/estado.service';
+import { EstadoDTO } from 'src/models/estado.dto';
+import { CidadeDTO } from 'src/models/cidade.dto';
 
 
 @Component({
@@ -12,10 +16,15 @@ import { FormGroup, FormBuilder, Validators, FormsModule,ReactiveFormsModule} fr
 export class SignupPage{
 
   formGroup: FormGroup;
+  estados: EstadoDTO[];
+  cidades: CidadeDTO[];
+
   constructor(
     public navCtrl: NavController,
     public router: Router,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    public cidadeService: CidadeService,
+    public estadoService: EstadoService
     ) { 
       this.formGroup = this.formBuilder.group({
         nome: ['teste app', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -31,8 +40,8 @@ export class SignupPage{
         telefone1: ['997088008',[Validators.required]],
         telefone2: ['',[Validators.required]],
         telefone3: ['',[Validators.required]],
-        estadoId: [null,[Validators.required]],
-        cidadeId: [null,[Validators.required]]
+        estadoId: ['',[Validators.required]],
+        cidadeId: ['',[Validators.required]]
       });
     }
 
@@ -42,4 +51,26 @@ export class SignupPage{
     console.log("Enviado form")
 
   }
+  ngOnInit() {
+    this.estadoService.findAll()
+    .subscribe(response => {
+      this.estados = response
+      this.formGroup.controls.estadoId.setValue(this.estados[0].id);
+      console.log(this.estados);
+      this.updateCidades();
+    },
+    error => {});
+  }
+
+  updateCidades(){
+    let estado_id = this.formGroup.value.estadoId;
+    this.cidadeService.findAll(estado_id)
+    .subscribe(response => {
+      this.cidades = response;
+      this.formGroup.controls.cidadeId.setValue(null);
+
+    },
+    error => {});
+  }
+
 }
