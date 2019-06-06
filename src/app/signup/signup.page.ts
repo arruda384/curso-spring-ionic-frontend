@@ -38,8 +38,8 @@ export class SignupPage{
         bairro: ['janga',[Validators.required]],
         cep: ['5343755',[Validators.required]],
         telefone1: ['997088008',[Validators.required]],
-        telefone2: ['',[Validators.required]],
-        telefone3: ['',[Validators.required]],
+        telefone2: ['',[]],
+        telefone3: ['',[]],
         estadoId: ['',[Validators.required]],
         cidadeId: ['',[Validators.required]]
       });
